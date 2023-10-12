@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AI Assisted Medical Records Digitization</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        font-size: 20px;
+        font-family: Arial, sans-serif;
+        background-color: #222; /* Modified background color */
+        color: #fff;
+      }
+
+      .left-panel {
+        width: 300px;
+        padding: 20px;
+        background-color: #000; /* Black background color */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center the logo */
+        gap: 10px;
+      }
+
+      .left-panel h2 {
+        color: #fff;
+      }
+
+      .left-panel ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 210px;
+      }
+
+      .left-panel li {
+        margin-bottom: 10px;
+        margin-left: 23px;
+      }
+
+      .left-panel .img {
+        filter: invert(100%);
+        width: 16%;
+      }
+
+      .menu-bar {
+        display: flex;
+        /* justify-content: space-around; */
+        height: 40px;
+        align-items: center;
+        margin-bottom: 10px;
+        /* left: 0; */
+        margin-left: -20px;
+      }
+
+      .left-panel a {
+        display: block;
+        color: #fff;
+        text-decoration: none;
+        padding: 5px;
+        /* background-color: #ff6666; /* Lighter red color */
+        /* border: 2px solid #000; */
+      }
+
+      .left-panel .menu-bar:hover,
+      .left-panel .menu-bar.active {
+        background-color: #ff0000;
+      }
+
+      .right-panel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 930px;
+        height: 575px;
+        padding: 20px;
+        background-color: #222;
+      }
+
+      h1 {
+        color: white;
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+
+      .menu {
+        background-color: #222;
+        width: 300px;
+        display: flex;
+        justify-content: center;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      input[type="text"],
+      button {
+        padding: 10px;
+        font-size: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: #000;
+        background-color: #fff;
+      }
+
+      button {
+        background-color: #ff0000;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+
+      .button-container {
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+      }
+
+      .question-container {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .fileInput {
+        display: flex;
+        background-color: #000;
+        width: 700px;
+        padding: 8px 10px;
+        align-items: center;
+      }
+
+      .fileInput input {
+        margin-left: 400px;
+      }
+
+      .label {
+        width: 157px;
+      }
+
+      /* .fileInput label {
+  width: 25px;
+} */
+
+      .question-container {
+        display: flex;
+      }
+
+      .question-container input {
+        width: 579px !important;
+      }
+
+      button {
+        width: 110px !important;
+      }
+
+      .button-container input {
+        width: 456px !important;
+      }
+
+      button:hover{
+        opacity: 0.8;
+      }
+
+      button:active{
+        opacity: 0.5;
+      }
+
+      .box label,
+      .speechLabel {
+        margin-left: 0px !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="left-panel">
+      <div class="logo">
+        <img src="IMG_3627.PNG" alt="Logo" width="100%" />
+        <!-- Increased logo size to width="200" -->
+      </div>
+
+      <!-- <h2>Menu</h2> -->
+      <div class="menu">
+        <ul>
+          <div class="menu-bar">
+            <img class="img" src="4-removebg-preview.png" alt="img" />
+            <li><a href="#">Admin</a></li>
+          </div>
+          <div class="menu-bar">
+            <img class="img" src="1-removebg-preview.png" alt="img" />
+            <li><a href="#">Doctor</a></li>
+          </div>
+          <div class="menu-bar">
+            <img class="img" src="2-removebg-preview.png" alt="img" />
+            <li class="active"><a href="#">Member</a></li>
+          </div>
+          <div class="menu-bar">
+            <img class="img" src="3-removebg-preview.png" alt="img" />
+            <li><a href="#">Logout</a></li>
+          </div>
+        </ul>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <h1>AI Assisted Medical Records Digitization</h1>
+
+      <div class="fileInput">
+        <!-- File input to browse and upload multiple files -->
+        <label class="label" for="fileInput">Select Files:</label>
+        <input type="file" id="fileInput" multiple />
+      </div>
+      <br /><br />
+
+      <div class="box">
+        <label for="speechInput">Ask a question:</label>
+        <div class="question-container">
+          <input
+            type="text"
+            id="questionInput"
+            placeholder="Type your question"
+          />
+          <button onclick="askQuestion()">Ask</button>
+        </div>
+      </div>
+      <!-- Question input and "Ask" button -->
+
+      <br /><br />
+
+      <!-- Speech input for user's question -->
+      <div class="box">
+        <label class="speechLabel" for="speechInput">Ask with speech:</label>
+        <div class="button-container">
+          <input
+            type="text"
+            id="speechInput"
+            placeholder="Click the microphone to start speaking"
+            disabled
+          />
+          <button id="startSpeechBtn" onclick="startSpeechRecognition()">
+            Start
+          </button>
+          <button id="stopSpeechBtn" onclick="stopSpeechRecognition()" disabled>
+            Stop
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript code for button functionality -->
+    <script>
+      let recognition;
+      let mediaRecorder;
+      let audioChunks = [];
+
+      function askQuestion() {
+        var question = document.getElementById("questionInput").value;
+        // Perform action based on the user's question
+        if (question.trim() !== "") {
+          // Process the question using AI
+          // Perform necessary actions based on the question
+          // Display the answer or take appropriate actions
+          console.log("User's question: " + question);
+          // Example: Display the question in an alert
+          alert("Your question: " + question);
+        }
+      }
+
+      function startSpeechRecognition() {
+        document.getElementById("speechInput").value = "";
+        document.getElementById("speechInput").placeholder = "Speak now...";
+        document.getElementById("startSpeechBtn").disabled = true;
+        document.getElementById("stopSpeechBtn").disabled = false;
+
+        // Initialize speech recognition
+        recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+        recognition.interimResults = true;
+
+        recognition.onresult = function (event) {
+          let interimTranscript = "";
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            const transcript = event.results[i][0].transcript;
+            if (event.results[i].isFinal) {
+              document.getElementById("speechInput").value += transcript;
+            } else {
+              interimTranscript += transcript;
+            }
+          }
+        };
+
+        // Start speech recognition
+        recognition.start();
+        console.log("Speech recognition started");
+      }
+
+      function stopSpeechRecognition() {
+        document.getElementById("speechInput").placeholder =
+          "Click the microphone to start speaking";
+        document.getElementById("startSpeechBtn").disabled = false;
+        document.getElementById("stopSpeechBtn").disabled = true;
+
+        // Stop speech recognition
+        recognition.stop();
+        console.log("Speech recognition stopped");
+      }
+
+      function startRecording() {
+        navigator.mediaDevices
+          .getUserMedia({ audio: true })
+          .then(function (stream) {
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.start();
+            console.log("Recording started");
+            mediaRecorder.addEventListener("dataavailable", function (event) {
+              audioChunks.push(event.data);
+            });
+          })
+          .catch(function (error) {
+            console.log("Error accessing microphone: " + error);
+          });
+      }
+
+      function stopRecording() {
+        mediaRecorder.stop();
+        console.log("Recording stopped");
+        saveRecording();
+      }
+
+      function saveRecording() {
+        const blob = new Blob(audioChunks, { type: "audio/ogg; codecs=opus" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "C:/Users/deime/OneDrive/Desktop/resolute ai sw logo";
+        link.click();
+        audioChunks = [];
+      }
+
+      // Submit text input on Enter key press
+      document
+        .getElementById("questionInput")
+        .addEventListener("keyup", function (event) {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            askQuestion();
+          }
+        });
+    </script>
+  </body>
+</html>
